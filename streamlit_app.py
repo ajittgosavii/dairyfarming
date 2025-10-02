@@ -1022,7 +1022,7 @@ def show_breeding_manager():
                 
                 col1, col2 = st.columns(2)
                 with col1:
-                    breeding_date = st.date_input("Breeding Date")
+                    breeding_date = st.date_input("Breeding Date", value=datetime.now())
                     breeding_type = st.selectbox("Breeding Type", ["Natural", "AI"])
                     bull_details = st.text_input("Bull Details/Breed")
                 with col2:
@@ -1030,7 +1030,7 @@ def show_breeding_manager():
                     st.date_input("Expected Calving Date", value=expected_calving, disabled=True)
                     notes = st.text_area("Notes")
                 
-                submitted = st.form_submit_button("Record", use_container_width=True, type="primary")
+                submitted = st.form_submit_button("Record Breeding", use_container_width=True, type="primary")
                 
                 if submitted:
                     conn = sqlite3.connect('buffalomitra.db')
@@ -1045,6 +1045,12 @@ def show_breeding_manager():
                     conn.close()
                     st.success("Breeding recorded!")
                     st.rerun()
+        else:
+            st.warning("No buffaloes found in inventory!")
+            st.info("Please add buffaloes to your inventory first before recording breeding information.")
+            if st.button("Go to Buffalo Inventory", type="primary", use_container_width=True):
+                st.session_state.current_page = "Buffalo Inventory"
+                st.rerun()
     
     with tab2:
         conn = sqlite3.connect('buffalomitra.db')
@@ -1089,7 +1095,7 @@ def show_health_records():
                 
                 col1, col2 = st.columns(2)
                 with col1:
-                    date = st.date_input("Date")
+                    date = st.date_input("Date", value=datetime.now())
                     record_type = st.selectbox("Type", ["Vaccination", "Treatment", "Checkup", "Deworming"])
                     disease_name = st.text_input("Disease/Condition")
                     symptoms = st.text_area("Symptoms")
@@ -1099,7 +1105,7 @@ def show_health_records():
                     veterinarian = st.text_input("Veterinarian")
                     cost = st.number_input("Cost (₹)", min_value=0, value=0)
                 
-                submitted = st.form_submit_button("Save Record", use_container_width=True, type="primary")
+                submitted = st.form_submit_button("Save Health Record", use_container_width=True, type="primary")
                 
                 if submitted:
                     conn = sqlite3.connect('buffalomitra.db')
@@ -1114,6 +1120,12 @@ def show_health_records():
                     conn.close()
                     st.success("Health record saved!")
                     st.rerun()
+        else:
+            st.warning("No buffaloes found in inventory!")
+            st.info("Please add buffaloes to your inventory first before adding health records.")
+            if st.button("Go to Buffalo Inventory", type="primary", use_container_width=True):
+                st.session_state.current_page = "Buffalo Inventory"
+                st.rerun()
     
     with tab2:
         conn = sqlite3.connect('buffalomitra.db')
