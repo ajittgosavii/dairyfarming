@@ -42,73 +42,155 @@ def get_anthropic_client():
         st.error(f"Error initializing AI: {str(e)}")
         return None
 
-# Custom CSS
+# Enhanced Custom CSS
 st.markdown("""
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    * {
+        font-family: 'Inter', sans-serif;
+    }
+    
+    .main {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    }
+    
     .main-header {
-        font-size: 2.8rem;
-        font-weight: bold;
-        color: #1565C0;
+        font-size: 3.2rem;
+        font-weight: 700;
+        color: #ffffff;
         text-align: center;
-        padding: 1.5rem;
-        background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
-        border-radius: 15px;
-        margin-bottom: 1rem;
+        padding: 2.5rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 20px;
+        margin-bottom: 2rem;
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
     }
+    
     .sub-header {
-        font-size: 1.8rem;
-        color: #0D47A1;
-        font-weight: bold;
-        margin-top: 1.5rem;
-        border-bottom: 3px solid #2196F3;
-        padding-bottom: 0.5rem;
+        font-size: 2rem;
+        color: #2c3e50;
+        font-weight: 700;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        border-bottom: 4px solid #667eea;
+        padding-bottom: 0.8rem;
     }
+    
     .info-card {
-        background-color: #E3F2FD;
-        padding: 1.5rem;
-        border-radius: 12px;
-        border-left: 6px solid #2196F3;
-        margin: 1rem 0;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        padding: 2rem;
+        border-radius: 16px;
+        border-left: 6px solid #667eea;
+        margin: 1.5rem 0;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        transition: transform 0.3s ease;
     }
+    
+    .info-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 32px rgba(0,0,0,0.18);
+    }
+    
     .health-card {
-        background-color: #E8F5E9;
-        padding: 1.2rem;
-        border-radius: 10px;
-        margin: 0.5rem 0;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-    }
-    .ai-card {
-        background-color: #FFF3E0;
-        padding: 1.5rem;
-        border-radius: 12px;
-        border-left: 6px solid #FF9800;
+        background: linear-gradient(135deg, #ffffff 0%, #e8f5e9 100%);
+        padding: 1.8rem;
+        border-radius: 16px;
         margin: 1rem 0;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        box-shadow: 0 6px 20px rgba(76, 175, 80, 0.15);
+        border: 2px solid #81c784;
     }
+    
+    .ai-card {
+        background: linear-gradient(135deg, #fff8e1 0%, #ffe0b2 100%);
+        padding: 2rem;
+        border-radius: 16px;
+        border-left: 6px solid #ff9800;
+        margin: 1.5rem 0;
+        box-shadow: 0 8px 24px rgba(255, 152, 0, 0.2);
+    }
+    
     .alert-card {
-        background-color: #FFEBEE;
-        padding: 1.2rem;
-        border-radius: 10px;
-        border-left: 5px solid #F44336;
-        margin: 0.8rem 0;
+        background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+        padding: 1.8rem;
+        border-radius: 16px;
+        border-left: 6px solid #f44336;
+        margin: 1.2rem 0;
+        box-shadow: 0 6px 20px rgba(244, 67, 54, 0.2);
+        font-weight: 600;
+        color: #c62828;
     }
+    
     .success-card {
-        background-color: #E8F5E9;
-        padding: 1.2rem;
-        border-radius: 10px;
-        border-left: 5px solid #4CAF50;
-        margin: 0.8rem 0;
+        background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+        padding: 1.8rem;
+        border-radius: 16px;
+        border-left: 6px solid #4caf50;
+        margin: 1.2rem 0;
+        box-shadow: 0 6px 20px rgba(76, 175, 80, 0.2);
+        font-weight: 600;
+        color: #2e7d32;
     }
+    
     .warning-card {
-        background-color: #FFF9C4;
-        padding: 1.2rem;
-        border-radius: 10px;
-        border-left: 5px solid #FFC107;
-        margin: 0.8rem 0;
+        background: linear-gradient(135deg, #fffde7 0%, #fff9c4 100%);
+        padding: 1.8rem;
+        border-radius: 16px;
+        border-left: 6px solid #ffc107;
+        margin: 1.2rem 0;
+        box-shadow: 0 6px 20px rgba(255, 193, 7, 0.2);
+        font-weight: 600;
+        color: #f57f17;
+    }
+    
+    div[data-testid="metric-container"] {
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        border-radius: 16px;
+        padding: 1.5rem;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        border: 2px solid #e3e8ef;
+        transition: all 0.3s ease;
+    }
+    
+    div[data-testid="metric-container"]:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        border-color: #667eea;
+    }
+    
+    .stButton > button {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        padding: 0.75rem 2rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+    
+    .stButton > button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    }
+    
+    section[data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
+    }
+    
+    section[data-testid="stSidebar"] * {
+        color: #ecf0f1 !important;
+    }
+    
+    .dataframe thead tr th {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        color: white !important;
+        font-weight: 700 !important;
+        padding: 1rem !important;
     }
     </style>
     """, unsafe_allow_html=True)
+
 
 # Buffalo Breed Database
 BUFFALO_BREEDS = {
